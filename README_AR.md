@@ -101,3 +101,15 @@ flutter create --platforms=android --project-name academic_platform .
 4. بعد نجاح التشغيل افتح نتيجة الـ workflow، ثم نزّل Artifact باسم `academic-platform-android-apk`.
 
 ملاحظة: لا يتضمن الأرشيف APK جاهزًا؛ يجب تشغيل Workflow في GitHub لبنائه في بيئة Flutter/Android.
+
+
+## إصلاح خطأ عدم وجود android/app/build.gradle
+
+إذا كان سجل البناء لا يعرض خطوة `Generate Android platform files`، فهذا يعني أن GitHub يشغّل ملف Workflow قديمًا أو أن التعديلات لم تُرفع إلى المستودع. ارفع محتويات هذا المشروع إلى المستودع مع المجلد المخفي `.github/workflows/`، ثم تحقق من ظهور الخطوات التالية في سجل Actions:
+
+1. `Generate Android platform files`
+2. `Verify Android Gradle files`
+3. `Get Flutter dependencies`
+4. `Build release APK`
+
+لا تحذف مجلد `.github` عند الرفع. بعد نجاح البناء نزّل APK من قسم Artifacts في صفحة تشغيل Workflow.
