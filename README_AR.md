@@ -80,3 +80,24 @@ flutter build apk --release
 ```
 
 إذا كانت بيئة Klencod لا تسمح بتنزيل حزمة `flutter_launcher_icons`، أخبرني برسالة الخطأ؛ يمكن ضبط ملفات أيقونات Android يدويًا.
+
+## إصلاح بناء APK على Klencod IDE / GitHub Actions
+
+تمت إضافة ملف سير عمل جاهز في:
+`.github/workflows/build-apk.yml`
+
+سبب الخطأ السابق أن المشروع لا يحتوي على مجلد `android/` وملف `android/app/build.gradle` الذي يتوقعه مسار البناء. يقوم سير العمل الجديد بإنشاء ملفات منصة Android تلقائيًا بواسطة:
+
+```bash
+flutter create --platforms=android --project-name academic_platform .
+```
+
+ثم يجلب الحزم، ويولّد الأيقونة، ويفحص الكود، ويبني APK ويرفعه كـ Artifact.
+
+### الاستخدام
+1. ارفع محتويات هذا المجلد إلى مستودع GitHub الخاص بالمشروع، مع إظهار الملفات المخفية مثل `.github`.
+2. افتح تبويب **Actions** في GitHub.
+3. اختر **Build Android APK** ثم **Run workflow**، أو ادفع التعديلات إلى الفرع `main`.
+4. بعد نجاح التشغيل افتح نتيجة الـ workflow، ثم نزّل Artifact باسم `academic-platform-android-apk`.
+
+ملاحظة: لا يتضمن الأرشيف APK جاهزًا؛ يجب تشغيل Workflow في GitHub لبنائه في بيئة Flutter/Android.
